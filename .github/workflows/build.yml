@@ -13,6 +13,9 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
+      - name: Recreate project structure to match Flutter version
+        run: |
+          flutter create . --org com.example --project-name chat_app --platforms=android
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
