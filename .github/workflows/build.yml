@@ -13,9 +13,16 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - name: Recreate project structure to match Flutter version
+      - name: Create project structure
         run: |
           flutter create . --org com.example --project-name chat_app --platforms=android
+      - name: Update Gradle version to be compatible with Java
+        run: |
+          echo "distributionBase=GRADLE_USER_HOME" > android/gradle/wrapper/gradle-wrapper.properties
+          echo "distributionPath=wrapper/dists" >> android/gradle/wrapper/gradle-wrapper.properties
+          echo "distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-bin.zip" >> android/gradle/wrapper/gradle-wrapper.properties
+          echo "zipStoreBase=GRADLE_USER_HOME" >> android/gradle/wrapper/gradle-wrapper.properties
+          echo "zipStorePath=wrapper/dists" >> android/gradle/wrapper/gradle-wrapper.properties
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
