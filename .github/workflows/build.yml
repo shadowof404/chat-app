@@ -16,6 +16,11 @@ jobs:
       - name: Create full Flutter project structure
         run: |
           flutter create . --org com.example --project-name chat_app --platforms=android
+      - name: Fix Gradle Wrapper Version
+        run: |
+          cd android
+          gradle wrapper --gradle-version 8.7
+          cd ..
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
